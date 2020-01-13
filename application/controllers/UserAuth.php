@@ -45,11 +45,12 @@ class UserAuth extends CI_Controller
         $this->form_validation->set_rules('username', 'Nome', 'trim|required|xss_clean');
         $this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean|valid_email');
         $this->form_validation->set_rules('password', 'Senha', 'trim|required|xss_clean');
-        
+
         if ($this->form_validation->run() == false) {
             $this->load->view('RegisterForm');
         } else {
             $data = array(
+                //Recuperando os inputs informados via posts  
                 'name' => $this->input->post('username'),
                 'email' => $this->input->post('email_value'),
                 'password' => hash('sha256', $this->input->post('password'), false),
@@ -58,7 +59,7 @@ class UserAuth extends CI_Controller
             );
             /**
              * Inserção no banco e depois mostra a view do Login
-             * Senao 
+             * Senao
              *  exibe Mensagem de erro e mantem o usuario na pagina de Registro
              */
             if ($this->users->insert($data)) {
