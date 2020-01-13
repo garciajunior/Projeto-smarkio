@@ -1,7 +1,5 @@
 <?php
 
-
-
 class UserAuth extends CI_Controller
 {
 
@@ -11,7 +9,9 @@ class UserAuth extends CI_Controller
 
         $this->load->helper('security');
 
-        $this->load->helper('url');
+        //$this->load->helper('url');
+        //Esse helper será usado para
+        //linkar os css tambem
 
         // Load form helper library
         $this->load->helper('form');
@@ -29,10 +29,10 @@ class UserAuth extends CI_Controller
     // Show login page
     public function index()
     {
-        $this->load->view('login_form');
+        $this->load->view('LoginForm');
     }
 
-    // Show registration page
+    // Mostra a pagina de registro
     public function user_registration_show()
     {
         $this->load->view('RegisterForm');
@@ -41,23 +41,29 @@ class UserAuth extends CI_Controller
     // Validate and store registration data in database
     public function new_user_registration()
     {
-
-        // Check validation for user input in SignUp form
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-        if ($this->form_validation->run() == FALSE) {
+        // Regras de validação do formulario
+        $this->form_validation->set_rules('username', 'Nome', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean|valid_email');
+        $this->form_validation->set_rules('password', 'Senha', 'trim|required|xss_clean');
+        
+        if ($this->form_validation->run() == false) {
             $this->load->view('RegisterForm');
         } else {
             $data = array(
                 'name' => $this->input->post('username'),
                 'email' => $this->input->post('email_value'),
-                'password' => hash('sha256', $this->input->post('password'), FALSE)
+                'password' => hash('sha256', $this->input->post('password'), false),
+                //Utilizando uma função para usar um hash e embaralhar a senha do usuario
+                //para guardar ela incriptada  no banco
             );
-
+            /**
+             * Inserção no banco e depois mostra a view do Login
+             * Senao 
+             *  exibe Mensagem de erro e mantem o usuario na pagina de Registro
+             */
             if ($this->users->insert($data)) {
                 $data['message_display'] = 'Usuário cadastrado com sucesso !';
-                $this->load->view('login_form', $data);
+                $this->load->view('LoginForm', $data);
             } else {
                 $data['message_display'] = 'Falha ao cadastrar o usuário';
                 $this->load->view('RegisterForm', $data);
@@ -68,41 +74,41 @@ class UserAuth extends CI_Controller
     // Check for user login process
     public function user_login_process()
     {
-
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
-
-        if ($this->form_validation->run() == FALSE) {
+        /**
+         * Se o usuario estiver logado
+         * redireciona para a view de Mensagem
+         * Senão verifica se ele existe no banco e processa o login
+         *  redireciona para a view de Mensagem
+         */
+        if ($this->form_validation->run() == false) {
             if (isset($this->session->userdata['logged_in'])) {
                 redirect('/message');
             } else {
-                $this->load->view('login_form');
+                $this->load->view('LoginForm');
             }
         } else {
             $data = array(
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password')
+                'email' => $this->input->post('email_value'),
+                'password' => hash('sha256', $this->input->post('password'), false),
             );
-            $result = $this->users->where($data)->get_by();
+            $result = $this->users->where($data)->get();
 
-            if ($result == TRUE) {
-
-                $username = $this->input->post('username');
-                $result = $this->login_database->read_user_information($username);
-                if ($result != false) {
-                    $session_data = array(
-                        'username' => $result[0]->user_name,
-                        'email' => $result[0]->user_email,
-                    );
-                    // Add user data in session
-                    $this->session->set_userdata('logged_in', $session_data);
-                    $this->load->view('admin_page');
-                }
+            if ($result != false) {
+                $session_data = array(
+                    'id' => $result->id,
+                    'name' => $result->name,
+                    'email' => $result->email,
+                );
+                // Add user data in session
+                $this->session->set_userdata('logged_in', $session_data);
+                redirect('/message');
             } else {
                 $data = array(
-                    'error_message' => 'Invalid Username or Password'
+                    'error_message' => 'Invalid Email or Password',
                 );
-                $this->load->view('login_form', $data);
+                $this->load->view('LoginForm', $data);
             }
         }
     }
@@ -111,12 +117,13 @@ class UserAuth extends CI_Controller
     public function logout()
     {
 
-        // Removing session data
+        // Removendo a veriavel de sessao e redirecionando para a view de login
         $sess_array = array(
-            'username' => ''
+            'email' => '',
         );
         $this->session->unset_userdata('logged_in', $sess_array);
         $data['message_display'] = 'Successfully Logout';
-        $this->load->view('login_form', $data);
+        $this->load->view('LoginForm', $data);
     }
+
 }

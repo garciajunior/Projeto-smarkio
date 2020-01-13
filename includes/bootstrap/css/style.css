@@ -1,0 +1,53 @@
+.register{
+    
+background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+    
+    
+    
+}
+.login{
+    align-content:  center;
+    margin-top: 100px;
+  
+}
+.card{
+    height: 500px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+    }
+.card-header h3{
+    color: white;
+}
+.table_backgraund_color
+{
+    color: white;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+.table_backgraund_color tr:hover{
+    color: black;
+}
+
+
+.text_color {
+    color: white;
+}
+.login_btn{
+    color: black;
+    background-color: rgb(52, 155, 202);
+    width: 100px;
+}    
+.login_btn:hover{
+color: black;
+background-color: rgb(15, 177, 0);
+}
+
+.links{
+    color: white;
+    font-size: 2rem;
+}
