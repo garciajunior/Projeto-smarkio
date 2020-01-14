@@ -5,7 +5,7 @@ README
 
 # Instalando Localmente
 
-Siga os passos para seguir a instalação local do codeigniter
+Siga os passos para seguir a instalação local do codeIgniter
 
 ### 1 - Adicionando Host para /etc/hosts
 
@@ -20,9 +20,9 @@ $ sudo echo "127.0.0.1 teste-smarkio.com.br www.teste-smarkio.com.br" >> /etc/ho
 
 - Depois editar com as seguites configurações.
 
-    ServerName -> Nome do servidor "teste-smarkio.com.br"
-    ServeAlias -> Nome do Alias para o servidor "www.teste-smarkio.com.br"
-    DocumetRoot é o caminho de onde encontra o projeto "/home/junior/Documentos/Projeto-smarkio"
+    - ServerName -> Nome do servidor "teste-smarkio.com.br"
+    - ServeAlias -> Nome do Alias para o servidor "www.teste-smarkio.com.br"
+    - DocumetRoot é o caminho de onde encontra o projeto "/home/junior/Documentos/Projeto-smarkio"
 
 ```
 <VirtualHost *:80>
@@ -87,6 +87,6 @@ $ php Projeto-smarkio/index.php migrate
 
 ### 8 - Verificar se as configurações deram certo
 
-na barra de endereços do browser colocar a seguinte url
+Na barra de endereços do browser colocar a seguinte url
 
 - [http://http://www.teste-smarkio.com.br/](http://www.teste-smarkio.com.br/) 
