@@ -89,8 +89,4 @@ $ php Projeto-smarkio/index.php migrate
 
 na barra de endereços do browser colocar a seguinte url
 
-- [http://http://www.teste-smarkio.com.br//](http://www.teste-smarkio.com.br/) 
-
-### 9  - Repositório do gitHub com o projeto
-    Para acessar o repositório do gitHub acessar o link
-- [https://github.com/garciajunior/Projeto-smarkio]
+- [http://http://www.teste-smarkio.com.br/](http://www.teste-smarkio.com.br/) 
