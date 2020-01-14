@@ -1,8 +1,6 @@
 <html>
-
-
 <head>
-    <title>Registration Form</title>
+    <title>Sign in</title>
     
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
   
@@ -77,6 +75,4 @@
 </div> <!-- class="container"-->
 </div>
 </body>
-
-
 </html>

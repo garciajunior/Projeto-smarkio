@@ -1,5 +1,5 @@
 <?php
-
+    defined('BASEPATH') OR exit('No direct script access allowed');
 class UserAuth extends CI_Controller
 {
 
@@ -8,11 +8,6 @@ class UserAuth extends CI_Controller
         parent::__construct();
 
         $this->load->helper('security');
-
-        //$this->load->helper('url');
-        //Esse helper será usado para
-        //linkar os css tambem
-
         // Load form helper library
         $this->load->helper('form');
 
@@ -26,7 +21,7 @@ class UserAuth extends CI_Controller
         $this->load->model('users');
     }
 
-    // Show login page
+    // Pagina de Login
     public function index()
     {
         $this->load->view('LoginForm');
@@ -72,7 +67,7 @@ class UserAuth extends CI_Controller
         }
     }
 
-    // Check for user login process
+    // Processo de Login
     public function user_login_process()
     {
         $this->form_validation->set_rules('email_value', 'Email', 'trim|required|xss_clean');
@@ -81,7 +76,7 @@ class UserAuth extends CI_Controller
          * Se o usuario estiver logado
          * redireciona para a view de Mensagem
          * Senão verifica se ele existe no banco e processa o login
-         *  redireciona para a view de Mensagem
+         *   redirecionando para a view de Mensagem
          */
         if ($this->form_validation->run() == false) {
             if (isset($this->session->userdata['logged_in'])) {
@@ -94,6 +89,9 @@ class UserAuth extends CI_Controller
                 'email' => $this->input->post('email_value'),
                 'password' => hash('sha256', $this->input->post('password'), false),
             );
+            /**
+             * @ SELECT id, name, email FROM user WHERE email=email AND password= password
+             */
             $result = $this->users->where($data)->get();
 
             if ($result != false) {
@@ -117,8 +115,7 @@ class UserAuth extends CI_Controller
     // Logout from admin page
     public function logout()
     {
-
-        // Removendo a veriavel de sessao e redirecionando para a view de login
+         // Removendo a veriavel de sessao e redirecionando para a view de login
         $sess_array = array(
             'email' => '',
         );
@@ -126,5 +123,4 @@ class UserAuth extends CI_Controller
         $data['message_display'] = 'Successfully Logout';
         $this->load->view('LoginForm', $data);
     }
-
 }

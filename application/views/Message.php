@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="pt-br" dir="ltr">
 	<head>
+	<title>Mensagens</title>
 		<script type="text/javascript">
 		function TableActions (value, row, index) {
 			return '<a href="/message/delete/'+value+'" class="btn btn-labeled btn-danger" role="button"><span class="btn-label"> <i class="glyphicon glyphicon-remove"></i> </span>Delete</a>';
@@ -83,7 +84,6 @@
 								</tr>";
 							}
 						}
-
 						?>
 					</tbody>
 				</table>

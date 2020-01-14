@@ -1,5 +1,5 @@
 <?php
-
+  defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Message extends CI_Controller
 {
@@ -11,7 +11,6 @@ class Message extends CI_Controller
     $this->load->helper('security');
     // Load session library
     $this->load->library('session');
-
     // Load database
     $this->load->model('Messages');
 
@@ -28,7 +27,7 @@ class Message extends CI_Controller
     }
   }
 
-  // Show login page
+  // Pagina de Login
   //--------------------------------------------------
   public function index()
   {
@@ -66,7 +65,7 @@ class Message extends CI_Controller
     //Valida e pre processa  o field text_message       
     $this->form_validation->set_rules('text_message', 'Mensagem', 'required');
     /**
-     * Se o field texxt_message estiver vazio
+     * Se o field text_message estiver vazio
      *  envia uma mensagem de erro
      * Senao
      *  busca com o id_user da sessao  e redeniza todas as mensagens na view de Menssagem
