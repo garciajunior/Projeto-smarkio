@@ -7,7 +7,7 @@ phases:
       - apt -yq upgrade
   # Install Apache2
       - echo "---------------Installing Apache2--------------------"
-      - apt install apache2
+      - apt install -yq apache2
   #Install php 
       - echo "--------------- Intalling php ------------------------"
       - apt-get -yq install php7.2
