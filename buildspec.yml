@@ -37,7 +37,7 @@ phases:
         </VirtualHost>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
       - a2ensite teste-smarkio.com.br.conf
       - a2enmod rewrite
-      - systemctl restart apache2
+      - service apache2 reload
   build:
     commands:
       - php echo "Im working";
