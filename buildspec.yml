@@ -39,6 +39,6 @@ phases:
     commands:
       - php echo "Im working";
   
-  pos_build:
+  post_build:
     command:
       - php echo " Pos-build";
