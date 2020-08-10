@@ -1,0 +1,44 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - apt update --fix-missing
+      - apt -yq upgrade
+  #Install php 
+      - echo "------- Intalling php ------"
+      - apt-get -yq install php7.2
+      - apt-get install -yq php7.2-cli php7.2-fpm php7.2-soap php7.2-json php7.2-dom php7.2-pdo php7.2-zip
+      - apt-get install -yq php7.2-mysqli php7.2-gd php7.2-gettext php7.2-xmlreader php7.2-xmlrpc php7.2-iconv         php7.2-curl \
+      - apt-get install -yq php7.2-ctype php7.2-mbstring
+    # criando o virtual hostname
+      - echo "------- Creating Virtual Host ------"
+      - echo "127.0.0.1 teste-smarkio.com.br www.teste-smarkio.com.br" >> /etc/hosts
+      - echo "
+        <VirtualHost *:80>
+            ServerName teste-smarkio.com.br
+            ServerAlias www.teste-smarkio.com.br
+            DocumentRoot "/home/junior/Documentos/Projeto-smarkio"
+
+            SetEnv CI_ENV development
+
+            <Directory "/home/junior/Documentos/Projeto-smarkio">
+                    AllowOverride All
+                    Allow from All
+
+                    Require all granted
+            </Directory>
+
+            ErrorLog "/var/log/apache2/error_log"
+            CustomLog "/var/log/apache2/access_log" common
+        </VirtualHost>" >> /etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - a2ensite teste-smarkio.com.br.conf
+      - a2enmod rewrite
+      - service apache2 reload
+  build:
+    commands:
+      - php echo "Im working";
+  
+  pos_build:
+    command:
+      - php echo " Pos-build";
