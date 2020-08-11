@@ -7,8 +7,7 @@ phases:
       - apt -yq upgrade
   # Install Apache2
       - echo "---------------Installing Apache2--------------------"
-      - apt install -yq apache2
-      - apache2 start
+      - install -yq apache2
       - systemctl is-active apache2
       - systemctl is-enabled apache2
   #Install php 
