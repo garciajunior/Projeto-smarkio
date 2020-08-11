@@ -5,9 +5,11 @@ phases:
     commands:
       - apt-get update --fix-missing
       - apt-get -yq upgrade
+      - apt-get -yq  install --reinstall systemd 
   # Install Apache2
       - echo "---------------Installing Apache2--------------------"
       - apt-get install -yq apache2
+      - apt install --fix-broken
       - systemctl is-active apache2
       - systemctl is-enabled apache2
   #Install php 
