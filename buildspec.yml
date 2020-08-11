@@ -3,11 +3,11 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt update --fix-missing
-      - apt -yq upgrade
+      - apt-get update --fix-missing
+      - apt-get -yq upgrade
   # Install Apache2
       - echo "---------------Installing Apache2--------------------"
-      - install -yq apache2
+      - apt-get install -yq apache2
       - systemctl is-active apache2
       - systemctl is-enabled apache2
   #Install php 
