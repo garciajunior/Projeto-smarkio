@@ -20,7 +20,7 @@ phases:
     - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - echo Im working"
+      - echo Im working
   post_build:
     command:
       - echo Pos-build
