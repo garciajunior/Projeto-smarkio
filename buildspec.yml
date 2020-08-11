@@ -17,24 +17,23 @@ phases:
     # criando o virtual hostname
       - echo "--------------- Creating Virtual Host -----------------"
       - echo "127.0.0.1 teste-smarkio.com.br www.teste-smarkio.com.br" >> /etc/hosts
-      - echo "
-        <VirtualHost *:80>
-            ServerName teste-smarkio.com.br
-            ServerAlias www.teste-smarkio.com.br
-            DocumentRoot "/home/junior/Documentos/Projeto-smarkio"
-
-            SetEnv CI_ENV development
-
-            <Directory "/home/junior/Documentos/Projeto-smarkio">
-                    AllowOverride All
-                    Allow from All
-
-                    Require all granted
-            </Directory>
-
-            ErrorLog "/var/log/apache2/error_log"
-            CustomLog "/var/log/apache2/access_log" common
-        </VirtualHost>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "<VirtualHost *:80>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        ServerName teste-smarkio.com.br" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        ServerAlias www.teste-smarkio.com.br" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        DocumentRoot /home/junior/Documentos/Projeto-smarkio" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        SetEnv CI_ENV development" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "">>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        <Directory /home/junior/Documentos/Projeto-smarkio>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "                AllowOverride All" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "                Allow from All" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf\
+      - echo "                Require all granted\n" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        </Directory>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "">>/etc/apache2/sites-available/teste-smarkio.com.br.conf\
+      - echo "        ErrorLog /var/log/apache2/error_log" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "        CustomLog /var/log/apache2/access_log common" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
+      - echo "</VirtualHost>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
       - a2ensite teste-smarkio.com.br.conf
       - a2enmod rewrite
       - service apache2 reload
