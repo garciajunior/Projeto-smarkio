@@ -1,13 +1,16 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
     commands:
       - apt update --fix-missing
       - apt -yq upgrade
   # Install Apache2
       - echo "---------------Installing Apache2--------------------"
       - apt install -yq apache2
+      - apache2 start
+      - systemctl is-active apache2
+      - systemctl is-enabled apache2
   #Install php 
       - echo "--------------- Intalling php ------------------------"
       - apt-get -yq install php7.2
@@ -16,6 +19,7 @@ phases:
       - apt-get install -yq php7.2-ctype php7.2-mbstring
     # criando o virtual hostname
       - echo "--------------- Creating Virtual Host -----------------"
+      - touch /etc/apache2/sites-available/teste-smarkio.com.br.conf
       - echo "127.0.0.1 teste-smarkio.com.br www.teste-smarkio.com.br" >> /etc/hosts
       - echo "<VirtualHost *:80>" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
       - echo "        ServerName teste-smarkio.com.br" >>/etc/apache2/sites-available/teste-smarkio.com.br.conf
@@ -37,6 +41,10 @@ phases:
       - a2ensite teste-smarkio.com.br.conf
       - a2enmod rewrite
       - service apache2 reload
+  pre_build:
+    commands:
+    - echo Entering pre_build phase...
+    - echo Nothing to do in the pre_build phase...
   build:
     commands:
       - php echo "Im working";
